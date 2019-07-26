@@ -15,7 +15,7 @@ class Branch
   end
 
   def leaves
-    Dir["#{@input_dir}/*.tiff"]
+    Dir["#{@input_dir}/*.tiff"] + Dir["#{@input_dir}/*.tif"]
   end
 
   def grow
@@ -42,7 +42,7 @@ class Branch
 
   def grow_leaves
     leaves.each do |tiff|
-      output_file = tiff.gsub(@input_dir, @output_dir).gsub('.tiff', '.pdf')
+      output_file = tiff.gsub(@input_dir, @output_dir).sub(/\.[^\.]+$/, '.pdf')
       image = Image.read(tiff).first
       image.write(output_file)
     end
